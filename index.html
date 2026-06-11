@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Tools Hub | Compare the best AI tools before you buy</title>
+  <meta name="description" content="Explore our curated collection of 50+ cutting-edge AI tools across 8 categories. Find the perfect tool to supercharge your workflow." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="#" onclick="showPage('home')" class="navbar-logo">
+        <span class="navbar-logo-icon">⚡</span> AI Tools Hub
+      </a>
+      <div class="navbar-links">
+        <a href="#" onclick="showPage('home')" class="navbar-link active" data-page="home">Home</a>
+        <a href="#" onclick="showPage('search')" class="navbar-link" data-page="search">Search</a>
+        <a href="#" onclick="showPage('about')" class="navbar-link" data-page="about">About</a>
+        <button class="btn btn-primary">Submit Tool</button>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        ☰
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="mobile-menu-link">Home</a>
+      <a href="#" onclick="showPage('search'); toggleMobileMenu()" class="mobile-menu-link">Search</a>
+      <a href="#" onclick="showPage('about'); toggleMobileMenu()" class="mobile-menu-link">About</a>
+    </div>
+  </nav>
+
+  <!-- PAGE: HOME -->
+  <div id="page-home" class="page page-enter">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Updated daily with the latest AI tools
+        </div>
+        <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">
+          <span class="hero-title-line">Compare the best <span class="gradient-text">AI tools</span></span>
+          <span class="hero-title-line">before you buy</span>
+        </h1>
+        <p class="hero-subtitle">
+          Explore our curated collection of <span id="heroToolCount">50</span>+ cutting-edge AI tools across 8 categories. Find the perfect tool to supercharge your workflow.
+        </p>
+        <div class="hero-search-wrapper">
+          <div class="search-container" id="heroSearch">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input search-input-lg" id="heroSearchInput" placeholder="Search AI tools by name, category, or feature..." oninput="handleHeroSearch(this.value)" onfocus="handleHeroSearch(this.value)" />
+            </div>
+            <div class="search-dropdown" id="heroSearchDropdown"></div>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-value gradient-text" id="statToolCount">50+</div>
+            <div class="hero-stat-label">AI Tools</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value gradient-text">8</div>
+            <div class="hero-stat-label">Categories</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value gradient-text">100%</div>
+            <div class="hero-stat-label">Free to Browse</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Tools -->
+    <section class="section featured-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Tools</h2>
+          <p class="section-subtitle">Handpicked AI solutions that are changing the game right now.</p>
+        </div>
+        
+        <div class="horizontal-scroll" id="featuredScroll">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <section class="section categories-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Browse by Category</h2>
+          <p class="section-subtitle">Find exactly what you need from our neatly organized collection.</p>
+        </div>
+        
+        <div class="categories-grid" id="categoriesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- All Tools Grid -->
+    <section class="section all-tools-section" id="all-tools-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">All AI Tools</h2>
+          <p class="section-subtitle">Explore our complete database of tools.</p>
+        </div>
+        
+        <div class="filters-container">
+          <div class="filter-pills" id="filterPills">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="tools-grid" id="allToolsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section">
+      <div class="container">
+        <div class="newsletter-box">
+          <h2 class="newsletter-title">Get the latest AI tools in your inbox</h2>
+          <p class="newsletter-subtitle">Join 50,000+ professionals discovering new AI tools every week. No spam, ever.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault();">
+            <input type="email" class="search-input" placeholder="Enter your email address" required />
+            <button type="submit" class="btn btn-primary" style="padding: 0 2rem;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </div> <!-- End Page Home -->
+
+
+  <!-- PAGE: SEARCH -->
+  <div id="page-search" class="page" style="display: none; padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+        <h1 class="section-title">Search Tools</h1>
+        <p class="section-subtitle">Find exactly what you're looking for.</p>
+      </div>
+      
+      <div class="search-container" style="margin-bottom: 2rem;">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input search-input-lg" id="searchPageInput" placeholder="Search AI tools by name, category, or feature..." oninput="handleSearchPage()" />
+        </div>
+      </div>
+
+      <div class="filters-container">
+        <div class="filter-pills" id="searchFilterPills">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem; color: var(--text-secondary); font-weight: 500;" id="searchResultsCount">
+        Showing all tools
+      </div>
+
+      <div class="tools-grid" id="searchResultsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE: CATEGORY -->
+  <div id="page-category" class="page" style="display: none; padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="#" onclick="showPage('search')">Categories</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" id="categoryBreadcrumb">Category</span>
+      </div>
+
+      <div class="category-header">
+        <div class="category-header-icon" id="categoryIcon">🎨</div>
+        <div class="category-header-info">
+          <h1 class="category-header-title" id="categoryName">Category Name</h1>
+          <p class="category-header-desc" id="categoryDesc">Category Description</p>
+          <div class="category-header-meta" id="categoryCount">0 tools available</div>
+        </div>
+      </div>
+
+      <div class="tools-grid" id="categoryToolsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE: TOOL DETAIL -->
+  <div id="page-tool" class="page" style="display: none; padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="#" id="toolCategoryLink">Category</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" id="toolBreadcrumb">Tool Name</span>
+      </div>
+
+      <div id="toolDetailContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: ABOUT -->
+  <div id="page-about" class="page" style="display: none; padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <div class="section-header">
+        <h1 class="section-title">About AI Tools Hub</h1>
+        <p class="section-subtitle">Our mission is to help you navigate the AI revolution.</p>
+      </div>
+      
+      <div class="about-content" style="max-width: 800px; margin: 0 auto;">
+        <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: var(--text-secondary);">
+          The artificial intelligence landscape is moving at breakneck speed. Every day, new tools are launched that promise to revolutionize how we work, create, and think. But with so much noise, how do you find the tools that actually deliver?
+        </p>
+        <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 3rem; color: var(--text-secondary);">
+          That's why we built AI Tools Hub. We manually curate, test, and review the most promising AI products on the market, organizing them into an easily searchable directory so you can find exactly what you need.
+        </p>
+
+        <div class="about-stats-grid" id="aboutStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="background: var(--bg-glass-strong); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); text-align: center;">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-primary);">Want to feature your tool?</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 2rem;">We're always looking for innovative AI products to share with our community.</p>
+          <button class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Submit Your Tool</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid" id="footerGrid">
+      <!-- Populated by JS -->
+    </div>
+    <div class="footer-bottom">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2026 AI Tools Hub. All rights reserved.</p>
+        <div style="display: flex; gap: 1rem;">
+          <a href="#" style="color: var(--text-tertiary); text-decoration: none;">Twitter</a>
+          <a href="#" style="color: var(--text-tertiary); text-decoration: none;">LinkedIn</a>
+          <a href="#" style="color: var(--text-tertiary); text-decoration: none;">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
