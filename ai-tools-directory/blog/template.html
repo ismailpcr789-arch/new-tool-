@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- SEO Metadata (Replace for each post) -->
+  <title>Blog Post Title | AI Tools Hub</title>
+  <meta name="description" content="A brief 150-160 character description of this blog post for search engines." />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Blog Post Title" />
+  <meta property="og:description" content="A brief description for social media previews." />
+  <meta property="og:image" content="https://images.unsplash.com/your-image-url" />
+  <meta property="og:type" content="article" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../styles.css" />
+  
+  <style>
+    /* Blog Specific Styles */
+    .blog-header {
+      padding: 150px 0 3rem;
+      text-align: center;
+    }
+    .blog-category-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      background: var(--bg-glass);
+      color: var(--accent-blue);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .blog-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+    .blog-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .blog-author img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .blog-hero-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      margin-bottom: 4rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .blog-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+    @media (max-width: 900px) {
+      .blog-container {
+        grid-template-columns: 1fr;
+      }
+      .blog-sidebar {
+        display: none;
+      }
+    }
+    
+    /* Table of Contents */
+    .toc-container {
+      position: sticky;
+      top: 120px;
+      background: var(--bg-glass);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+    }
+    .toc-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-list li {
+      margin-bottom: 0.75rem;
+    }
+    .toc-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+    .toc-list a:hover {
+      color: var(--accent-blue);
+    }
+    
+    /* Content Styles */
+    .blog-content {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+    .blog-content h2 {
+      color: var(--text-primary);
+      font-size: 2rem;
+      margin: 3rem 0 1rem;
+      font-family: 'Outfit', sans-serif;
+    }
+    .blog-content h3 {
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+    }
+    .blog-content p {
+      margin-bottom: 1.5rem;
+    }
+    .blog-content ul, .blog-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .blog-content li {
+      margin-bottom: 0.5rem;
+    }
+    .blog-content blockquote {
+      border-left: 4px solid var(--accent-blue);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-primary);
+      background: var(--bg-glass);
+      padding: 1.5rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    .blog-content img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      margin: 2rem 0;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 3rem;
+    }
+    .faq-item {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      display: none;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+    .faq-toggle {
+      transition: transform 0.3s;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    
+    /* Author Box */
+    .author-box {
+      margin-top: 4rem;
+      background: var(--bg-glass-strong);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .author-box img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .author-box h3 {
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .author-box p {
+      color: var(--text-secondary);
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="../index.html" class="navbar-logo">
+        <span class="navbar-logo-icon">⚡</span> AI Tools Hub
+      </a>
+      <div class="navbar-links">
+        <a href="../index.html#home" class="navbar-link">Home</a>
+        <a href="../index.html#search" class="navbar-link">Search</a>
+        <a href="../index.html#about" class="navbar-link">About</a>
+        <a href="../index.html#blog" class="navbar-link active">Blog</a>
+        <button class="btn btn-primary">Submit Tool</button>
+      </div>
+      <button class="mobile-menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+        ☰
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html#home" class="mobile-menu-link">Home</a>
+      <a href="../index.html#search" class="mobile-menu-link">Search</a>
+      <a href="../index.html#about" class="mobile-menu-link">About</a>
+      <a href="../index.html#blog" class="mobile-menu-link">Blog</a>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="blog-header container">
+    <!-- Replace with appropriate category -->
+    <div class="blog-category-badge">Tutorials & Guides</div>
+    
+    <!-- Replace with Title -->
+    <h1 class="blog-title">Your Blog Post Title Goes Here</h1>
+    
+    <!-- Replace Metadata -->
+    <div class="blog-meta">
+      <div class="blog-author">
+        <img src="https://i.pravatar.cc/150?u=author" alt="Author" />
+        <span>Author Name</span>
+      </div>
+      <span>•</span>
+      <span>June 10, 2026</span>
+      <span>•</span>
+      <span>6 min read</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Replace Featured Image -->
+    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="Featured" class="blog-hero-image" />
+  </div>
+
+  <div class="blog-container">
+    <!-- Sidebar: Table of Contents -->
+    <aside class="blog-sidebar">
+      <div class="toc-container">
+        <h3 class="toc-title">Table of Contents</h3>
+        <ul class="toc-list">
+          <!-- Update TOC Links based on H2s below -->
+          <li><a href="#section-1">Introduction to the topic</a></li>
+          <li><a href="#section-2">Key features to look for</a></li>
+          <li><a href="#section-3">Our top recommendations</a></li>
+          <li><a href="#faq">Frequently Asked Questions</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Article Content -->
+    <article class="blog-content">
+      
+      <p>Begin your article here. Write a compelling introduction that hooks the reader. AI is evolving rapidly, and keeping up can be tough.</p>
+      
+      <h2 id="section-1">Introduction to the topic</h2>
+      <p>This is where you dive deep. Use paragraphs to break down complex ideas. You can also use bold text like <strong>this is very important</strong> to highlight key concepts.</p>
+      
+      <blockquote>
+        "Artificial Intelligence will not replace you. A person using Artificial Intelligence will replace you."
+      </blockquote>
+
+      <h2 id="section-2">Key features to look for</h2>
+      <p>When selecting a tool, make sure you look for these things:</p>
+      <ul>
+        <li><strong>Accuracy:</strong> Does the tool provide correct information?</li>
+        <li><strong>Speed:</strong> Is it fast enough for your workflow?</li>
+        <li><strong>Pricing:</strong> Does it fit your budget?</li>
+      </ul>
+
+      <h2 id="section-3">Our top recommendations</h2>
+      <p>After testing dozens of tools, we have narrowed it down to our favorites. Check out the <a href="../index.html">AI Tools Hub directory</a> for the full list.</p>
+
+      <!-- FAQ Section -->
+      <div class="faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentNode.classList.toggle('active')">
+            Is this tool free to use?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Yes, many of the tools listed here have a generous free tier that you can use indefinitely.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentNode.classList.toggle('active')">
+            Do I need to know how to code?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Not at all. The vast majority of these AI applications are designed with intuitive, no-code interfaces.
+          </div>
+        </div>
+      </div>
+
+      <!-- Author Box -->
+      <div class="author-box">
+        <img src="https://i.pravatar.cc/150?u=author" alt="Author" />
+        <div>
+          <h3>Author Name</h3>
+          <p>Author bio goes here. They are an expert in AI automation and have spent 5 years evaluating software platforms to help businesses scale.</p>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- Related Articles -->
+  <section class="section" style="margin-top: 4rem; background: var(--bg-glass);">
+    <div class="container">
+      <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Related Articles</h2>
+      <div class="tools-grid" id="relatedArticlesGrid" style="grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));">
+        <!-- Will be populated by JS if we want, or hardcode it for pure static -->
+        <!-- For this template, we inject it via JS using blog-data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom" style="margin-top: 0; border-top: none;">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2026 AI Tools Hub. All rights reserved.</p>
+        <div style="display: flex; gap: 1rem;">
+          <a href="../index.html" style="color: var(--text-tertiary); text-decoration: none;">Back to Directory</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../blog-data.js"></script>
+  <script>
+    // Handle Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 20) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Populate Related Articles
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('relatedArticlesGrid');
+      if(container && typeof blogPosts !== 'undefined') {
+        // Just show random 3 articles for the template preview
+        const related = blogPosts.slice(0, 3);
+        related.forEach(post => {
+          const cat = getBlogCategoryById(post.category);
+          const card = document.createElement('div');
+          card.className = 'tool-card stagger-item';
+          card.style.cursor = 'pointer';
+          card.onclick = () => window.location.href = '../' + post.contentUrl;
+          
+          card.innerHTML = `
+            <div style="height: 200px; margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;">
+              <img src="${post.featuredImage}" style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+            <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem; font-size: 0.9rem;">
+              <span style="color: ${cat?.color || 'var(--accent-blue)'}; font-weight: 600;">${cat?.name}</span>
+            </div>
+            <h3 class="tool-card-name" style="margin-bottom: 0.5rem;">${post.title}</h3>
+          `;
+          container.appendChild(card);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
