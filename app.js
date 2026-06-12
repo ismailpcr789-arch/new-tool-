@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFeaturedTools();
   renderAllToolsFilters();
   renderAllTools('all');
+  if (typeof blogCategories !== 'undefined') {
+    renderBlogFilters();
+    renderBlogPosts('all');
+  }
 });
 
 // -------------------------
@@ -463,4 +467,77 @@ function showToolDetail(slug) {
   `;
 
   showPage('tool');
+}
+
+// -------------------------
+// Blog Rendering Logic
+// -------------------------
+let currentBlogFilter = 'all';
+
+function renderBlogFilters() {
+  const container = document.getElementById('blogFilterPills');
+  if(!container) return;
+  container.innerHTML = `<button class="filter-pill active" onclick="renderBlogPosts('all')">All Articles</button>`;
+  
+  blogCategories.forEach(cat => {
+    container.innerHTML += `<button class="filter-pill" onclick="renderBlogPosts('${cat.id}')">${cat.name}</button>`;
+  });
+}
+
+function renderBlogPosts(categoryId) {
+  currentBlogFilter = categoryId;
+  
+  // Update Pills
+  document.querySelectorAll('#blogFilterPills .filter-pill').forEach(pill => {
+    pill.classList.remove('active');
+    if(categoryId === 'all' && pill.textContent.includes('All Articles')) pill.classList.add('active');
+    else if(categoryId !== 'all' && pill.textContent.includes(getBlogCategoryById(categoryId)?.name)) pill.classList.add('active');
+  });
+
+  const container = document.getElementById('blogPostsGrid');
+  if(!container) return;
+  container.innerHTML = '';
+
+  let filtered = categoryId === 'all' ? blogPosts : getBlogPostsByCategory(categoryId);
+  
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state" style="grid-column: 1/-1;">
+        <div class="empty-state-icon">📝</div>
+        <h3 class="empty-state-title">No articles found</h3>
+        <p class="empty-state-desc">We are still writing content for this category.</p>
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach(post => {
+    const cat = getBlogCategoryById(post.category);
+    
+    const card = document.createElement('div');
+    card.className = 'tool-card stagger-item';
+    card.style.cursor = 'pointer';
+    card.onclick = () => window.location.href = post.contentUrl;
+    
+    card.innerHTML = `
+      <div style="height: 200px; margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;">
+        <img src="${post.featuredImage}" alt="${post.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+      <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+        <span style="color: ${cat?.color || 'var(--accent-blue)'}; font-weight: 600;">${cat?.name}</span>
+        <span style="color: var(--text-tertiary);">•</span>
+        <span style="color: var(--text-tertiary);">${post.readTime}</span>
+      </div>
+      <h3 class="tool-card-name" style="margin-bottom: 0.5rem; font-size: 1.25rem;">${post.title}</h3>
+      <p class="tool-card-desc" style="margin-bottom: 1.5rem;">${post.excerpt}</p>
+      <div style="display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+        <img src="${post.author.avatar}" style="width: 32px; height: 32px; border-radius: 50%;" />
+        <div>
+          <div style="font-weight: 600; font-size: 0.9rem;">${post.author.name}</div>
+          <div style="color: var(--text-tertiary); font-size: 0.8rem;">${post.date}</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 }

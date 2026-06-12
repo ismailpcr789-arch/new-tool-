@@ -25,6 +25,7 @@
         <a href="#" onclick="showPage('home')" class="navbar-link active" data-page="home">Home</a>
         <a href="#" onclick="showPage('search')" class="navbar-link" data-page="search">Search</a>
         <a href="#" onclick="showPage('about')" class="navbar-link" data-page="about">About</a>
+        <a href="#" onclick="showPage('blog')" class="navbar-link" data-page="blog">Blog</a>
         <button class="btn btn-primary">Submit Tool</button>
       </div>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
@@ -37,6 +38,7 @@
       <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="mobile-menu-link">Home</a>
       <a href="#" onclick="showPage('search'); toggleMobileMenu()" class="mobile-menu-link">Search</a>
       <a href="#" onclick="showPage('about'); toggleMobileMenu()" class="mobile-menu-link">About</a>
+      <a href="#" onclick="showPage('blog'); toggleMobileMenu()" class="mobile-menu-link">Blog</a>
     </div>
   </nav>
 
@@ -259,6 +261,26 @@
   </div>
 
 
+  <!-- PAGE: BLOG LISTING -->
+  <div id="page-blog" class="page" style="display: none; padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+        <h1 class="section-title">Insights & Tutorials</h1>
+        <p class="section-subtitle">Read the latest strategies, guides, and news from the AI industry.</p>
+      </div>
+      
+      <div class="filters-container">
+        <div class="filter-pills" id="blogFilterPills">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="tools-grid" id="blogPostsGrid" style="grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container footer-grid" id="footerGrid">
@@ -278,6 +300,7 @@
 
   <!-- Scripts -->
   <script src="data.js"></script>
+  <script src="blog-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
